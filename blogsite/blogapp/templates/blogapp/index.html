@@ -21,8 +21,17 @@
     {% endfor %}
   {% endfor %}
 
+{% if user.is_authenticated %}
+{% if commenter ==user %}
+  <button type="submit">Check-in</button>
+    {% endif %}
+    {% endif %}
+
+
 {# {% extends "comment_form.html" %} #}
 
 </body>
+
+
 
 </html>
