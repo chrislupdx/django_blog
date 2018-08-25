@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>There are Wonderous Things</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'urlapp/style.css' %}" />
+</head>
+
+<dir> We Get What We Deserve</dir>
+
+<body>
+  {% for post in blogposts %} 
+  {# i'm 80% sure we don't need to instatntiate blogpost_list #}
+    {% include "blogapp/post.html" with blogpost=post %}
+    {% for comment in post.comments.all %}
+      {% include "blogapp/comment.html" with comment=comment %}
+    {% endfor %}
+  {% endfor %}
+</body>
+
+</html>
