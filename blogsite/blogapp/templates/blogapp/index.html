@@ -20,18 +20,26 @@
       {% include "blogapp/comment.html" with comment=comment %}
     {% endfor %}
   {% endfor %}
-
-{% if user.is_authenticated %}
-{% if commenter ==user %}
-  <button type="submit">Check-in</button>
-    {% endif %}
-    {% endif %}
-
-
 {# {% extends "comment_form.html" %} #}
 
 </body>
 
+<div>
+  {% if user.is_authenticated %}
+  <h1>submit a comment</h1>
+  
+<form action="{% url 'add_comment' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="todo_text"/>
+    <button type="submit">+</button>
+</form>
 
+
+{% endif %}
+
+</div>
 
 </html>
+
+{#   <textarea name="comment_box" form="comment_add_form">TIME IS A FLAT CIRCLE</textarea>
+  <input type="submit" name="comment_box"> #}
