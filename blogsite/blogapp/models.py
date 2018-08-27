@@ -16,4 +16,4 @@ class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	blogpost = models.ForeignKey(Blogpost, on_delete=models.CASCADE, related_name='comments')
 	body = models.CharField(max_length= 25000)
-	timestamp= models.DateTimeField()
+	timestamp= models.DateTimeField(default=datetime.now())

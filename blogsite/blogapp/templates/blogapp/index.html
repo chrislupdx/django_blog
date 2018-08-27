@@ -1,45 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'blogapp/base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>There are Wonderous Things</title>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'urlapp/style.css' %}" />
-</head>
+{% block title %}Home{% endblock %}
 
-<dir> We Get What We Deserve</dir>
+{% block content %}
+<p>We Get What We Deserve</p>
 
-<body>
+
   {% for post in blogposts %} 
-  {# i'm 80% sure we don't need to instatntiate blogpost_list #}
+     {{post.id}}
     {% include "blogapp/post.html" with blogpost=post %}
+
+  {% if user.is_authenticated %}
+    <h1>submit a comment</h1>
+    <form action="{% url 'blogapp:add_comment' blog_pk=post.pk %}" method="post">
+        {% csrf_token %}
+      <input type="text" name="comment_text"/>
+      <button type="submit">Submit Comment</button>
+    </form>
+
     {% for comment in post.comments.all %}
       {% include "blogapp/comment.html" with comment=comment %}
     {% endfor %}
-  {% endfor %}
-{# {% extends "comment_form.html" %} #}
+  {% endif %}
+{% endfor %}
 
-</body>
+{% endblock %}
 
-<div>
-  {% if user.is_authenticated %}
-  <h1>submit a comment</h1>
-  
-<form action="{% url 'add_comment' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="todo_text"/>
-    <button type="submit">+</button>
-</form>
-
-
-{% endif %}
-
-</div>
-
-</html>
-
-{#   <textarea name="comment_box" form="comment_add_form">TIME IS A FLAT CIRCLE</textarea>
-  <input type="submit" name="comment_box"> #}

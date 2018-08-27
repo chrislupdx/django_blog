@@ -1,3 +1,12 @@
 <h1>{{ blogpost.title }}</h1>{
 {{ blogpost.body }}
-<button type="submit">Post Blogpost</button>
+<h2>post a blogpost</h2>
+
+{% if user.is_authenticated %}
+    <form action="{% url 'blogapp:add_blogpost'%}" method="post">
+        {% csrf_token %}
+      <input type="text" name="title" />
+      <input type="text" name="blog_text"/>
+      <button type="submit">Submit Blog</button>
+    </form>
+{% endif %}
